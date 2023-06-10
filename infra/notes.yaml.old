@@ -1,0 +1,63 @@
+apiVersion: v1 #K8s is extensible - we can add in our own custom objects. This specifies the set objects we want K8s to look at
+kind: Pod #The type of object we want to create
+metadata: #Config options for the object we are about to create
+  name: posts #When the pod is crated, give it a name of 'posts'
+spec: #The exact attribute we want to apply to the object we are about to create
+  containers: #We can create many containers in a single pod
+    - name: posts # Make a container with a name of 'posts'
+      image: pmakanga/posts:0.0.1 #The exact image we want to use
+# docker and kubernates commands
+build and image:
+--------------
+docker build -t pmakanga/posts .
+
+push an image to a docker hub
+----------------------------
+docker push pmakanga/posts
+
+apply a deployment on kubernetes cluster
+----------------------------------------
+kubectl apply -f posts-depl.yaml
+
+get deployments on kubernetes
+------------------------------
+kubectl get deployments
+
+get pods on kubernetes
+----------------------
+kubectl get pods
+
+check logs on kubernetes
+------------------------
+kubectl logs posts-depl-7b795f9db-vktqb
+
+rollout and restart a deployment after updating an image
+---------------------------------------------------------
+kubectl rollout restart deployments posts-depl (deployment name)
+
+describe deployments
+--------------------
+kubectl describe deployments posts-depl
+
+Services
+--------
+Provides networking between pods
+
+Types of Services:-
+Cluseter IP - Sets up an easy to remember URL to access a pod. Only exposes pods in a Cluseter
+Node Port - Makes the pod accessible from outside the cluster. Only used for dev purposes
+Load Balancer - Makes a pod accessible from outside the cluster. This is the right way to expose a pod to the outside world
+External Name - Redirects an in-cluster request to a CNAME url.....
+
+Apply services on a kubernates cluster
+--------------------------------------
+kubectl apply -f posts-srv.yaml
+
+get kubernates service
+-----------------------
+kubectl get services
+
+describe services
+----------------
+ kubectl describe services posts-srv 
+
